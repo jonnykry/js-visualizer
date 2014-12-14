@@ -1,5 +1,8 @@
 body {
-	background-color: #CCCCCC;
+	background-color: black;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
 }
 
 audio {
@@ -9,7 +12,10 @@ audio {
 	top: 0;
 }
 
-canvas {
+canvas { 
+	display: block;
+	position: absolute;
 	height: 100%;
 	width: 100%;
+	overflow: hidden;
 }

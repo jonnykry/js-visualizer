@@ -29,6 +29,8 @@ var biquadFilter;
 var convolver;
 var canvas;
 var canvasCtx;
+var color1;
+var color2;
 
 $(document).ready( function() {
 	init();
@@ -63,6 +65,8 @@ function init() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	canvasCtx = canvas.getContext('2d');
+
+	color1 = "#" + ((1 << 24) * Math.random() | 0).toString(16);
 }
 
 /*
@@ -90,8 +94,6 @@ function visualize() {
 	WIDTH = canvas.width;
 	HEIGHT = canvas.height;
 
-	var randColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-
 	analyser.fftSize = 2048;
 	bufferLength = analyser.frequencyBinCount;
 	dataArray = new Uint8Array(analyser.fftSize);
@@ -110,28 +112,9 @@ function draw() {
 
 	analyser.getByteFrequencyData(dataArray);
 
-	canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-	canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
-	canvasCtx.lineWidth = 2;
-	canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+	// TODO: Make more visualizers.
+	// Possibly use ThreeJS
 
-	canvasCtx.beginPath();
-
-	var sliceWidth = WIDTH * 1.0 / bufferLength;
-	var x = 0;
-
-	var barWidth = (WIDTH / bufferLength) * 2.5;
-	var barHeight;
-
-	for(var i = 0; i < bufferLength; i++) {
-		barHeight = dataArray[i] + (WIDTH / 2);
-
-    	canvasCtx.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-    	canvasCtx.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
-
-    	x += barWidth + 1;
-	}
 }
-
 
